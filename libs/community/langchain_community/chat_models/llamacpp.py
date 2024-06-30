@@ -166,6 +166,9 @@ class ChatLlamaCpp(BaseChatModel):
 
     verbose: bool = True
     """Print verbose output to stderr."""
+    
+    chat_format: Optional[str] = None
+    """Define the chat format"""
 
     @root_validator(pre=False, skip_on_failure=True)
     def validate_environment(cls, values: Dict) -> Dict:
@@ -196,7 +199,8 @@ class ChatLlamaCpp(BaseChatModel):
             "n_batch",
             "use_mmap",
             "last_n_tokens_size",
-            "verbose",
+            "verbose",            
+            "chat_format",
         ]
         model_params = {k: values[k] for k in model_param_names}
         # For backwards compatibility, only include if non-null.
